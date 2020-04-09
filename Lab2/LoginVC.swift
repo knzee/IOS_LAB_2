@@ -33,9 +33,34 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func Login(_ sender: Any) {
-        //apiService.register(email: "knzeeee@mail.ru", name: "Igor", password: "12345")
+        let mail = mailTextField.text
+        let password = passwordTextField.text
         
-        apiService.login(email: "knzeeee@mail.ru", password: "12345")
+        if (mail != "" && password != "") {
+            
+            apiService.login(email: mail!,password: password!)  { result in
+                switch result {
+                case .failure(let error):
+                    print(error)
+                    
+                case .success(let value):
+                    print(value)
+                }
+            }
+            
+        } else {
+            let message = "You have empty fields"
+            let alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertController.Style.alert)
+            
+            self.present(alert, animated: true)
+            
+            let duration: Double = 2
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }
+        
     }
     
     func setUpTextFields() {
