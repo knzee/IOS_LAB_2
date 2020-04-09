@@ -9,7 +9,30 @@
 import Alamofire
 
 class APIService {
-    func get() {
-        Alamofire.request("http://practice.mobile.kreosoft.ru/api/categories")
+    func register(email: String, name: String, password: String) {
+        
+        let parameters: [String : String] = [
+            "email": email,
+            "name": name,
+            "password": password
+        ]
+
+        Alamofire.request("http://practice.mobile.kreosoft.ru/api/register", method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+            print(response.value)
+        }
+        
+    }
+    
+    func login(email: String, password: String) {
+        let parameters: [String : String] = [
+            "email": email,
+            "password": password
+        ]
+        
+        Alamofire.request("http://practice.mobile.kreosoft.ru/api/login", method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+            print(response.value)
+            print(response.response)
+        }
+        
     }
 }

@@ -16,6 +16,8 @@ class LoginVC: UIViewController {
     @IBOutlet weak var mailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    var apiService = APIService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,6 +30,12 @@ class LoginVC: UIViewController {
         let viewController = RegisterVC()
         
         self.present(viewController, animated: true, completion: nil)
+    }
+    
+    @IBAction func Login(_ sender: Any) {
+        //apiService.register(email: "knzeeee@mail.ru", name: "Igor", password: "12345")
+        
+        apiService.login(email: "knzeeee@mail.ru", password: "12345")
     }
     
     func setUpTextFields() {
