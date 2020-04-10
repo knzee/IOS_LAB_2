@@ -9,7 +9,11 @@
 import Alamofire
 
 class APIService {
-    func register(email: String, name: String, password: String) {
+    func register(email: String, name: String, password: String,completionHandler: @escaping (Result<[String: Any]>) -> Void) {
+        registerRequest(email: email,name: name, password: password, completion: completionHandler)
+    }
+    
+    func registerRequest(email: String, name: String, password: String, completion: @escaping (Result<[String: Any]>) -> Void) {
         
         let parameters: [String : String] = [
             "email": email,
@@ -18,7 +22,17 @@ class APIService {
         ]
 
         Alamofire.request("http://practice.mobile.kreosoft.ru/api/register", method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
-            print(response.value)
+            switch response.result {
+            case .success(let value as [String: Any]):
+                completion(.success(value))
+                
+            case .failure(let error):
+                completion(.failure(error))
+                
+            default:
+                fatalError("received non-dictionary JSON response")
+            }
+            
         }
         
     }
@@ -32,8 +46,6 @@ class APIService {
             "email": email,
             "password": password
         ]
-        
-        var response: String =  ""
         
         Alamofire.request("http://practice.mobile.kreosoft.ru/api/login", method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
             switch response.result {
