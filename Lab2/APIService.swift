@@ -8,6 +8,20 @@
 
 import Alamofire
 
+private enum Const {
+    static let baseURL = "http://practice.mobile.kreosoft.ru/api/"
+    static let register = "register"
+    static let login = "login"
+    
+    static func registerURL() -> String {
+        return baseURL + register
+    }
+    
+    static func loginURL() -> String {
+        return baseURL + login
+    }
+}
+
 class APIService {
     func register(email: String, name: String, password: String,completionHandler: @escaping (Result<[String: Any]>) -> Void) {
         registerRequest(email: email,name: name, password: password, completion: completionHandler)
@@ -21,7 +35,7 @@ class APIService {
             "password": password
         ]
 
-        Alamofire.request("http://practice.mobile.kreosoft.ru/api/register", method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+        Alamofire.request(Const.registerURL(), method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
             switch response.result {
             case .success(let value as [String: Any]):
                 completion(.success(value))
@@ -37,28 +51,31 @@ class APIService {
         
     }
     
-    func login(email: String, password: String,completionHandler: @escaping (Result<[String: Any]>) -> Void) {
-        loginRequest(email: email,password: password, completion: completionHandler)
-    }
-    
-    func loginRequest(email: String, password: String, completion: @escaping (Result<[String: Any]>) -> Void) {
+   
+    func login(email: String, password: String, completion: ((Result<Token>) -> Void)? ) {
         let parameters: [String : String] = [
             "email": email,
             "password": password
         ]
         
-        Alamofire.request("http://practice.mobile.kreosoft.ru/api/login", method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+        let request = Alamofire.request(
+            Const.loginURL(),
+            method: HTTPMethod.post,
+            parameters: parameters,
+            encoding: JSONEncoding.default)
+        
+        request.responseData { response in
             switch response.result {
-            case .success(let value as [String: Any]):
-                completion(.success(value))
-                
+            case .success(let data):
+                do {
+                    let payload = try JSONDecoder().decode(Token.self, from: data)
+                    completion?(.success(payload))
+                } catch let error {
+                    completion?(.failure(error))
+                }
             case .failure(let error):
-                completion(.failure(error))
-                
-            default:
-                fatalError("received non-dictionary JSON response")
+                completion?(.failure(error))
             }
-            
         }
         
     }
