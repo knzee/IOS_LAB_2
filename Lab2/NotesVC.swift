@@ -12,6 +12,8 @@ class NotesVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var taskModel = TaskModel()
+    
     let idCell = "testCell"
     
     override func viewDidLoad() {
@@ -24,34 +26,35 @@ class NotesVC: UIViewController {
         tableView.delegate = self
         
         tableView.register(UINib(nibName: "NoteViewCell", bundle: nil), forCellReuseIdentifier: idCell)
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
     }
 
-    @IBAction func atat(_ sender: Any) {
-
-        let details = NotesDetailsVC()
-        self.navigationController?.pushViewController(details, animated: true)
+    @objc func addTask() {
+        print(228)
     }
     
 }
 
 extension NotesVC: UITableViewDataSource, UITableViewDelegate{
-    func numberOfSections(in tableView: UITableView) -> Int {
+    /*func numberOfSections(in tableView: UITableView) -> Int {
         return 3
         
-    }
+    }*/
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 2
-        } else {
-            return 10
-        }
+        return taskModel.tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: idCell) as! NoteViewCell
         
-        cell.stripeView.backgroundColor = UIColor(displayP3Red: CGFloat.random(in: 0..<1), green: CGFloat.random(in: 0..<1), blue: CGFloat.random(in: 0..<1), alpha: CGFloat.random(in: 0..<1))
+        let task = taskModel.tasks[indexPath.row]
+        
+        cell.titleLabel.text = task.title
+        cell.descriptionLabel.text = task.description
+        
+        cell.stripeView.backgroundColor = UIColor(hexString: task.priority.color)
         
         return cell
     }

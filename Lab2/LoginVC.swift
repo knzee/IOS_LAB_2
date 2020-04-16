@@ -19,6 +19,8 @@ class LoginVC: UIViewController {
     var apiService = APIService()
     var toast = Toast()
     
+    var repository = Repository()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,10 +54,19 @@ class LoginVC: UIViewController {
         } else {
             toast.popMessage(message: "You have empty fields", duration: 2.0, viewController: self)
          }*/
-        let notesVC = NotesVC()
+
+        
+        /*let notesVC = NotesVC()
         let nav = UINavigationController(rootViewController: notesVC)
         
-        self.present(nav, animated: true, completion: nil)
+        self.present(nav, animated: true, completion: nil)*/
+        var pr: [Priority] = []
+        repository.getPriorities { ass in
+            pr = ass
+            print(pr)
+        }
+
+        
         
     }
     

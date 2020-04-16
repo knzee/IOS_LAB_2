@@ -15,7 +15,7 @@
 		783F293D24470999007E65AC /* NotesCreateVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 783F293B24470999007E65AC /* NotesCreateVC.xib */; };
 		783F29422447393C007E65AC /* NoteViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F29402447393C007E65AC /* NoteViewCell.swift */; };
 		783F29432447393C007E65AC /* NoteViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 783F29412447393C007E65AC /* NoteViewCell.xib */; };
-		783F904C24406D03002BD909 /* CodableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F904B24406D03002BD909 /* CodableData.swift */; };
+		783F904C24406D03002BD909 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F904B24406D03002BD909 /* UserData.swift */; };
 		783F904E24407C6A002BD909 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F904D24407C6A002BD909 /* Toast.swift */; };
 		785A69C6243EE5B80012BC60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785A69C5243EE5B80012BC60 /* AppDelegate.swift */; };
 		785A69CD243EE5B90012BC60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 785A69CC243EE5B90012BC60 /* Assets.xcassets */; };
@@ -26,6 +26,8 @@
 		785A69E4243F19780012BC60 /* RegisterVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 785A69E2243F19780012BC60 /* RegisterVC.xib */; };
 		785A69E6243F1CB80012BC60 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785A69E5243F1CB80012BC60 /* UIExtensions.swift */; };
 		785A69E8243F23C30012BC60 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785A69E7243F23C30012BC60 /* APIService.swift */; };
+		78CE98DB24484AE30066A697 /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CE98DA24484AE30066A697 /* TaskData.swift */; };
+		78CE98E124488D770066A697 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CE98E024488D770066A697 /* Repository.swift */; };
 		ED77E176A4E1A99C4AA24871 /* Pods_Lab2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC4A27D5AB3DCA4DCFE3D30D /* Pods_Lab2.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,7 +41,7 @@
 		783F293B24470999007E65AC /* NotesCreateVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotesCreateVC.xib; sourceTree = "<group>"; };
 		783F29402447393C007E65AC /* NoteViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewCell.swift; sourceTree = "<group>"; };
 		783F29412447393C007E65AC /* NoteViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteViewCell.xib; sourceTree = "<group>"; };
-		783F904B24406D03002BD909 /* CodableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableData.swift; sourceTree = "<group>"; };
+		783F904B24406D03002BD909 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		783F904D24407C6A002BD909 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		785A69C2243EE5B80012BC60 /* Lab2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lab2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		785A69C5243EE5B80012BC60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +54,8 @@
 		785A69E2243F19780012BC60 /* RegisterVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterVC.xib; sourceTree = "<group>"; };
 		785A69E5243F1CB80012BC60 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		785A69E7243F23C30012BC60 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		78CE98DA24484AE30066A697 /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
+		78CE98E024488D770066A697 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		8FE8CE7E1937ABFEE74DBE23 /* Pods-Lab2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lab2.debug.xcconfig"; path = "Target Support Files/Pods-Lab2/Pods-Lab2.debug.xcconfig"; sourceTree = "<group>"; };
 		EC4A27D5AB3DCA4DCFE3D30D /* Pods_Lab2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lab2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -98,10 +102,10 @@
 		785A69C4243EE5B80012BC60 /* Lab2 */ = {
 			isa = PBXGroup;
 			children = (
+				78CE98DF24488BE10066A697 /* Services */,
+				78CE98DE24488BCD0066A697 /* Model */,
 				785A69C5243EE5B80012BC60 /* AppDelegate.swift */,
 				785A69E5243F1CB80012BC60 /* UIExtensions.swift */,
-				785A69E7243F23C30012BC60 /* APIService.swift */,
-				783F904B24406D03002BD909 /* CodableData.swift */,
 				783F904D24407C6A002BD909 /* Toast.swift */,
 				785A69CC243EE5B90012BC60 /* Assets.xcassets */,
 				785A69D1243EE5B90012BC60 /* Info.plist */,
@@ -120,6 +124,24 @@
 				783F29412447393C007E65AC /* NoteViewCell.xib */,
 			);
 			path = Lab2;
+			sourceTree = "<group>";
+		};
+		78CE98DE24488BCD0066A697 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				783F904B24406D03002BD909 /* UserData.swift */,
+				78CE98DA24484AE30066A697 /* TaskData.swift */,
+				78CE98E024488D770066A697 /* Repository.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		78CE98DF24488BE10066A697 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				785A69E7243F23C30012BC60 /* APIService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		7C2A9F8DDB34524261F56C3E /* Frameworks */ = {
@@ -252,9 +274,11 @@
 			files = (
 				783F293C24470999007E65AC /* NotesCreateVC.swift in Sources */,
 				785A69E3243F19780012BC60 /* RegisterVC.swift in Sources */,
+				78CE98DB24484AE30066A697 /* TaskData.swift in Sources */,
+				78CE98E124488D770066A697 /* Repository.swift in Sources */,
 				785A69E8243F23C30012BC60 /* APIService.swift in Sources */,
 				783F29342447095D007E65AC /* NotesVC.swift in Sources */,
-				783F904C24406D03002BD909 /* CodableData.swift in Sources */,
+				783F904C24406D03002BD909 /* UserData.swift in Sources */,
 				783F29422447393C007E65AC /* NoteViewCell.swift in Sources */,
 				785A69DD243EEA740012BC60 /* LoginVC.swift in Sources */,
 				783F29382447097C007E65AC /* NotesDetailsVC.swift in Sources */,
