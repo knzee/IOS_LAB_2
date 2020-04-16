@@ -17,6 +17,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     
     var apiService = APIService()
+    var toast = Toast()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,34 +33,29 @@ class LoginVC: UIViewController {
         self.present(viewController, animated: true, completion: nil)
     }
     
-    @IBAction func Login(_ sender: Any) {
-        let mail = mailTextField.text
+    @IBAction func logIn(_ sender: Any) {
+        /*let mail = mailTextField.text
         let password = passwordTextField.text
-        
-        if (mail != "" && password != "") {
+
+        if (!mail!.isEmpty && !password!.isEmpty) {
             
             apiService.login(email: mail!,password: password!)  { result in
                 switch result {
                 case .failure(let error):
-                    print(error)
+                    self.toast.popMessage(message: "ASHIBOCHKA", duration: 2.0, viewController: self)
                     
                 case .success(let value):
-                    print(value)
+                    print(value.api_token)
                 }
             }
             
         } else {
-            let message = "You have empty fields"
-            let alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertController.Style.alert)
-            
-            self.present(alert, animated: true)
-            
-            let duration: Double = 2
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
-                alert.dismiss(animated: true, completion: nil)
-            }
-        }
+            toast.popMessage(message: "You have empty fields", duration: 2.0, viewController: self)
+         }*/
+        let notesVC = NotesVC()
+        let nav = UINavigationController(rootViewController: notesVC)
+        
+        self.present(nav, animated: true, completion: nil)
         
     }
     
@@ -69,19 +65,8 @@ class LoginVC: UIViewController {
     }
     
     func setUpButtons() {
-        signInButton.layer.cornerRadius = 8.0
-        signUpButton.layer.cornerRadius = 8.0
-        
+        signInButton.setBorderRadius(radius: 8.0)
+        signUpButton.setBorderRadius(radius: 8.0)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

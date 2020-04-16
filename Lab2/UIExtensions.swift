@@ -17,3 +17,13 @@ extension UITextField {
         layer.addSublayer(bottomLine)
     }
 }
+
+extension UIButton {
+    func setBorderRadius(radius: CGFloat) {
+        self.layer.cornerRadius = radius
+    }
+}
+
+extension UITableViewCell {
+    
+}

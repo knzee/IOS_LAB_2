@@ -21,6 +21,7 @@ class RegisterVC: UIViewController {
     @IBOutlet weak var registerButton: UIButton!
     
     var apiService: APIService = APIService()
+    var toast: Toast = Toast()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,19 +29,6 @@ class RegisterVC: UIViewController {
         setUpButtons()
         setUpTextFields()
         
-    }
-    
-    func toast(message: String, duration: Double) {
-        let message = "You have empty fields"
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertController.Style.alert)
-        
-        self.present(alert, animated: true)
-        
-
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
-            alert.dismiss(animated: true, completion: nil)
-        }
     }
     
     @IBAction func openLoginVC(_ sender: Any) {
@@ -55,7 +43,7 @@ class RegisterVC: UIViewController {
         let password = passwordTextField.text
         let rptPass = repeatTextField.text
         
-        if (mail != "" && name != "" && password != "" && rptPass != "") {
+        if (!mail!.isEmpty && !name!.isEmpty && !password!.isEmpty && !rptPass!.isEmpty) {
             if (password == rptPass) {
                 apiService.login(email: mail!,password: password!)  { result in
                     switch result {
@@ -67,18 +55,17 @@ class RegisterVC: UIViewController {
                     }
                 }
             } else {
-                toast(message: "Passwords do not match", duration: 2.0)
+                toast.popMessage(message: "Passwords do not match", duration: 2.0, viewController: self)
             }
             
         } else {
-            toast(message: "You have empty fields",duration: 2.0)
+            toast.popMessage(message: "You have empty fields",duration: 2.0, viewController: self)
         }
     }
     
     func setUpButtons() {
-        signInButton.layer.cornerRadius = 8.0
-        registerButton.layer.cornerRadius = 8.0
-        
+        signInButton.setBorderRadius(radius: 8.0)
+        registerButton.setBorderRadius(radius: 8.0)
     }
     
     func setUpTextFields() {
