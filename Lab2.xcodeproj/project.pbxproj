@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		783F29342447095D007E65AC /* NotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F29322447095D007E65AC /* NotesVC.swift */; };
-		783F29352447095D007E65AC /* NotesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 783F29332447095D007E65AC /* NotesVC.xib */; };
-		783F29382447097C007E65AC /* NotesDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F29362447097C007E65AC /* NotesDetailsVC.swift */; };
-		783F29392447097C007E65AC /* NotesDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 783F29372447097C007E65AC /* NotesDetailsVC.xib */; };
-		783F293C24470999007E65AC /* NotesCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F293A24470999007E65AC /* NotesCreateVC.swift */; };
-		783F293D24470999007E65AC /* NotesCreateVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 783F293B24470999007E65AC /* NotesCreateVC.xib */; };
-		783F29422447393C007E65AC /* NoteViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F29402447393C007E65AC /* NoteViewCell.swift */; };
-		783F29432447393C007E65AC /* NoteViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 783F29412447393C007E65AC /* NoteViewCell.xib */; };
+		783F29342447095D007E65AC /* TasksVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F29322447095D007E65AC /* TasksVC.swift */; };
+		783F29352447095D007E65AC /* TasksVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 783F29332447095D007E65AC /* TasksVC.xib */; };
+		783F29382447097C007E65AC /* TasksDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F29362447097C007E65AC /* TasksDetailsVC.swift */; };
+		783F29392447097C007E65AC /* TasksDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 783F29372447097C007E65AC /* TasksDetailsVC.xib */; };
+		783F293C24470999007E65AC /* TasksCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F293A24470999007E65AC /* TasksCreateVC.swift */; };
+		783F293D24470999007E65AC /* TasksCreateVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 783F293B24470999007E65AC /* TasksCreateVC.xib */; };
+		783F29422447393C007E65AC /* TaskViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F29402447393C007E65AC /* TaskViewCell.swift */; };
+		783F29432447393C007E65AC /* TaskViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 783F29412447393C007E65AC /* TaskViewCell.xib */; };
 		783F904C24406D03002BD909 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F904B24406D03002BD909 /* UserData.swift */; };
 		783F904E24407C6A002BD909 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F904D24407C6A002BD909 /* Toast.swift */; };
 		785A69C6243EE5B80012BC60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785A69C5243EE5B80012BC60 /* AppDelegate.swift */; };
@@ -33,14 +33,14 @@
 
 /* Begin PBXFileReference section */
 		1E7FB95A783C34C59F0892AE /* Pods-Lab2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lab2.release.xcconfig"; path = "Target Support Files/Pods-Lab2/Pods-Lab2.release.xcconfig"; sourceTree = "<group>"; };
-		783F29322447095D007E65AC /* NotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesVC.swift; sourceTree = "<group>"; };
-		783F29332447095D007E65AC /* NotesVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotesVC.xib; sourceTree = "<group>"; };
-		783F29362447097C007E65AC /* NotesDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesDetailsVC.swift; sourceTree = "<group>"; };
-		783F29372447097C007E65AC /* NotesDetailsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotesDetailsVC.xib; sourceTree = "<group>"; };
-		783F293A24470999007E65AC /* NotesCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCreateVC.swift; sourceTree = "<group>"; };
-		783F293B24470999007E65AC /* NotesCreateVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotesCreateVC.xib; sourceTree = "<group>"; };
-		783F29402447393C007E65AC /* NoteViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewCell.swift; sourceTree = "<group>"; };
-		783F29412447393C007E65AC /* NoteViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteViewCell.xib; sourceTree = "<group>"; };
+		783F29322447095D007E65AC /* TasksVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksVC.swift; sourceTree = "<group>"; };
+		783F29332447095D007E65AC /* TasksVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TasksVC.xib; sourceTree = "<group>"; };
+		783F29362447097C007E65AC /* TasksDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksDetailsVC.swift; sourceTree = "<group>"; };
+		783F29372447097C007E65AC /* TasksDetailsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TasksDetailsVC.xib; sourceTree = "<group>"; };
+		783F293A24470999007E65AC /* TasksCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCreateVC.swift; sourceTree = "<group>"; };
+		783F293B24470999007E65AC /* TasksCreateVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TasksCreateVC.xib; sourceTree = "<group>"; };
+		783F29402447393C007E65AC /* TaskViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewCell.swift; sourceTree = "<group>"; };
+		783F29412447393C007E65AC /* TaskViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskViewCell.xib; sourceTree = "<group>"; };
 		783F904B24406D03002BD909 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		783F904D24407C6A002BD909 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		785A69C2243EE5B80012BC60 /* Lab2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lab2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +81,33 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		78323285244993D40047D9EF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				785A69DB243EEA740012BC60 /* LoginVC.swift */,
+				785A69E1243F19780012BC60 /* RegisterVC.swift */,
+				783F29322447095D007E65AC /* TasksVC.swift */,
+				783F29362447097C007E65AC /* TasksDetailsVC.swift */,
+				783F293A24470999007E65AC /* TasksCreateVC.swift */,
+				783F29402447393C007E65AC /* TaskViewCell.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		78323286244994080047D9EF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				785A69D9243EE91B0012BC60 /* LaunchScreen.xib */,
+				785A69DC243EEA740012BC60 /* LoginVC.xib */,
+				785A69E2243F19780012BC60 /* RegisterVC.xib */,
+				783F29332447095D007E65AC /* TasksVC.xib */,
+				783F29372447097C007E65AC /* TasksDetailsVC.xib */,
+				783F293B24470999007E65AC /* TasksCreateVC.xib */,
+				783F29412447393C007E65AC /* TaskViewCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		785A69B9243EE5B70012BC60 = {
 			isa = PBXGroup;
 			children = (
@@ -102,26 +129,14 @@
 		785A69C4243EE5B80012BC60 /* Lab2 */ = {
 			isa = PBXGroup;
 			children = (
+				78323286244994080047D9EF /* Views */,
+				78323285244993D40047D9EF /* Controllers */,
 				78CE98DF24488BE10066A697 /* Services */,
 				78CE98DE24488BCD0066A697 /* Model */,
 				785A69C5243EE5B80012BC60 /* AppDelegate.swift */,
 				785A69E5243F1CB80012BC60 /* UIExtensions.swift */,
-				783F904D24407C6A002BD909 /* Toast.swift */,
 				785A69CC243EE5B90012BC60 /* Assets.xcassets */,
 				785A69D1243EE5B90012BC60 /* Info.plist */,
-				785A69D9243EE91B0012BC60 /* LaunchScreen.xib */,
-				785A69DB243EEA740012BC60 /* LoginVC.swift */,
-				785A69DC243EEA740012BC60 /* LoginVC.xib */,
-				785A69E1243F19780012BC60 /* RegisterVC.swift */,
-				785A69E2243F19780012BC60 /* RegisterVC.xib */,
-				783F29322447095D007E65AC /* NotesVC.swift */,
-				783F29332447095D007E65AC /* NotesVC.xib */,
-				783F29362447097C007E65AC /* NotesDetailsVC.swift */,
-				783F29372447097C007E65AC /* NotesDetailsVC.xib */,
-				783F293A24470999007E65AC /* NotesCreateVC.swift */,
-				783F293B24470999007E65AC /* NotesCreateVC.xib */,
-				783F29402447393C007E65AC /* NoteViewCell.swift */,
-				783F29412447393C007E65AC /* NoteViewCell.xib */,
 			);
 			path = Lab2;
 			sourceTree = "<group>";
@@ -139,6 +154,7 @@
 		78CE98DF24488BE10066A697 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				783F904D24407C6A002BD909 /* Toast.swift */,
 				785A69E7243F23C30012BC60 /* APIService.swift */,
 			);
 			path = Services;
@@ -212,14 +228,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				783F29352447095D007E65AC /* NotesVC.xib in Resources */,
+				783F29352447095D007E65AC /* TasksVC.xib in Resources */,
 				785A69DE243EEA740012BC60 /* LoginVC.xib in Resources */,
-				783F29432447393C007E65AC /* NoteViewCell.xib in Resources */,
+				783F29432447393C007E65AC /* TaskViewCell.xib in Resources */,
 				785A69E4243F19780012BC60 /* RegisterVC.xib in Resources */,
 				785A69CD243EE5B90012BC60 /* Assets.xcassets in Resources */,
 				785A69DA243EE91B0012BC60 /* LaunchScreen.xib in Resources */,
-				783F29392447097C007E65AC /* NotesDetailsVC.xib in Resources */,
-				783F293D24470999007E65AC /* NotesCreateVC.xib in Resources */,
+				783F29392447097C007E65AC /* TasksDetailsVC.xib in Resources */,
+				783F293D24470999007E65AC /* TasksCreateVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,16 +288,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				783F293C24470999007E65AC /* NotesCreateVC.swift in Sources */,
+				783F293C24470999007E65AC /* TasksCreateVC.swift in Sources */,
 				785A69E3243F19780012BC60 /* RegisterVC.swift in Sources */,
 				78CE98DB24484AE30066A697 /* TaskData.swift in Sources */,
 				78CE98E124488D770066A697 /* Repository.swift in Sources */,
 				785A69E8243F23C30012BC60 /* APIService.swift in Sources */,
-				783F29342447095D007E65AC /* NotesVC.swift in Sources */,
+				783F29342447095D007E65AC /* TasksVC.swift in Sources */,
 				783F904C24406D03002BD909 /* UserData.swift in Sources */,
-				783F29422447393C007E65AC /* NoteViewCell.swift in Sources */,
+				783F29422447393C007E65AC /* TaskViewCell.swift in Sources */,
 				785A69DD243EEA740012BC60 /* LoginVC.swift in Sources */,
-				783F29382447097C007E65AC /* NotesDetailsVC.swift in Sources */,
+				783F29382447097C007E65AC /* TasksDetailsVC.swift in Sources */,
 				785A69C6243EE5B80012BC60 /* AppDelegate.swift in Sources */,
 				785A69E6243F1CB80012BC60 /* UIExtensions.swift in Sources */,
 				783F904E24407C6A002BD909 /* Toast.swift in Sources */,

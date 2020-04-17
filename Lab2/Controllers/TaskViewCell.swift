@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoteViewCell: UITableViewCell {
+class TaskViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var stripeView: UIView!

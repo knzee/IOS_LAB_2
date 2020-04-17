@@ -16,10 +16,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var mailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    var apiService = APIService()
     var toast = Toast()
-    
-    var repository = Repository()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,15 +53,10 @@ class LoginVC: UIViewController {
          }*/
 
         
-        /*let notesVC = NotesVC()
-        let nav = UINavigationController(rootViewController: notesVC)
+        let tasksVC = TasksVC()
+        let nav = UINavigationController(rootViewController: tasksVC)
         
-        self.present(nav, animated: true, completion: nil)*/
-        var pr: [Priority] = []
-        repository.getPriorities { ass in
-            pr = ass
-            print(pr)
-        }
+        self.present(nav, animated: true, completion: nil)
 
         
         

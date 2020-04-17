@@ -1,5 +1,5 @@
 //
-//  NotesCreateVC.swift
+//  NotesDetailsVC.swift
 //  Lab2
 //
 //  Created by Test Testovich on 15/04/2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NotesCreateVC: UIViewController {
+class TasksDetailsVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

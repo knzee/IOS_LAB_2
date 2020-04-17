@@ -7,5 +7,6 @@ target 'Lab2' do
 
   # Pods for Lab2
   pod 'Alamofire', '~> 4.0'
+  pod 'Kingfisher', '~> 4.0'
 
 end
