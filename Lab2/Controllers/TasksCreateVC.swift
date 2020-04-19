@@ -21,9 +21,12 @@ class TasksCreateVC: UIViewController {
     let picker = UIPickerView()
     let datePicker = UIDatePicker()
     
+    var delegate: updateControl?
+    
     var repository = Repository()
     
-    lazy var task: Task = self.initTask()
+    var task: Task?
+    var editMode: Bool = false
     
     var categories: [Category] = []
     var priorities: [Priority] = []
@@ -40,15 +43,28 @@ class TasksCreateVC: UIViewController {
         setUpPicker()
         setUpDatePicker()
         
+        initTask()
+        
     }
     
-    func initTask() -> Task {
+    func initTask() {
+        if task != nil {
+            editMode = true
+            titleTextField.text = task!.title
+            descriptionTextEdit.text = task!.description
+            categoryTextField.text = task!.category!.name
+            priorityTextField.text = task!.priority!.name
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "hh:mm    dd-MM-yyyy"
+            let dl = dateFormatter.string(from: Date(timeIntervalSince1970: Double(task!.deadline)))
+            dateTextField.text = dl
+            
+            createTaskButton.setTitle("Save", for: UIControl.State.normal)
+        } else {
+            task = Task(id: -1, title: "", description: "", done: false, deadline: 0, category: nil, priority: nil, created: 0)
+        }
         
-        var newTask: Task
-        
-        newTask = Task(id: -1, title: "", description: "", done: false, deadline: -1, category: nil, priority: nil, created: -1)
-        
-        return newTask
     }
 
     func setUpDatePicker() {
@@ -64,7 +80,7 @@ class TasksCreateVC: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm    dd-MM-yyyy"
         dateTextField.text = dateFormatter.string(from: datePicker.date)
-        task.deadline = Int(datePicker.date.timeIntervalSince1970)
+        task!.deadline = Int(datePicker.date.timeIntervalSince1970)
         
         view.endEditing(true)
     }
@@ -94,10 +110,10 @@ class TasksCreateVC: UIViewController {
         let row = picker.selectedRow(inComponent: 0)
         if isCategorySelected {
             categoryTextField.text = categories[row].name
-            task.category = categories[row]
+            task!.category = categories[row]
         } else {
             priorityTextField.text = priorities[row].name
-            task.priority = priorities[row]
+            task!.priority = priorities[row]
         }
         
         self.view.endEditing(true)
@@ -115,7 +131,7 @@ class TasksCreateVC: UIViewController {
             if let name = alert.textFields?.first?.text {
                 self.repository.postCategory(name: name, completion: { resultCategory in
                     if (resultCategory != nil) {
-                        self.task.category = resultCategory!
+                        self.task!.category = resultCategory!
                         self.categoryTextField.text = resultCategory!.name
                     }
                     
@@ -135,14 +151,27 @@ class TasksCreateVC: UIViewController {
     @IBAction func createTask(_ sender: Any) {
         
         
-        if !titleTextField.text!.isEmpty && task.category != nil && task.priority != nil && task.deadline != -1 {
-            task.title = titleTextField.text!
-            task.description = descriptionTextEdit.text
-            repository.postTask(title: task.title, description: task.description, done: Int(truncating: NSNumber(value: task.done)), deadline: task.deadline, category_id: task.category!.id, priority_id: task.priority!.id) { test in
-                if test != nil {
-                    self.navigationController?.popToRootViewController(animated: true)
+        if !titleTextField.text!.isEmpty && task!.category != nil && task!.priority != nil && task!.deadline != -1 {
+            task!.title = titleTextField.text!
+            task!.description = descriptionTextEdit.text
+            
+            if !editMode {
+                repository.postTask(title: task!.title, description: task!.description, done: Int(truncating: NSNumber(value: task!.done)), deadline: task!.deadline, category_id: task!.category!.id, priority_id: task!.priority!.id) { test in
+                    if test != nil {
+                        self.delegate?.updateTasks()
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                }
+            } else {
+                repository.patchTask(id: task!.id, title: task!.title, description: task!.description, done: Int(truncating: NSNumber(value: task!.done)), deadline: task!.deadline, category_id: task!.category!.id, priority_id: task!.priority!.id) { test in
+                    if test != nil {
+                        self.delegate?.updateTasks()
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
                 }
             }
+        
+            
         } else {
             Toast().popMessage(message: "You have empty fields", duration: 2, viewController: self)
         }

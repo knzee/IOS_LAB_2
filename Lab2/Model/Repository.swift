@@ -65,6 +65,20 @@ class Repository {
         
     }
     
+    func patchTask(id: Int,title: String, description: String, done: Int, deadline: Int, category_id: Int, priority_id: Int, completion: ((Task?) -> Void)? ) {
+        
+        apiService.patchTask(id: id, title: title, description: description, done: done, deadline: deadline, category_id: category_id, priority_id: priority_id) { resultTask in
+            switch resultTask {
+            case .success(let task):
+                completion?(task)
+            case .failure(let error):
+                print(error)
+                completion?(nil)
+            }
+        }
+        
+    }
+    
     func getTasks(completion: (([Task]?) -> Void)? ) {
         apiService.getTasks { result in
             switch result {

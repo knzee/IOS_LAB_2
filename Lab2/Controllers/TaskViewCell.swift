@@ -13,6 +13,7 @@ class TaskViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var stripeView: UIView!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var doneButton: CheckBox!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,4 +26,9 @@ class TaskViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+}
+
+class CheckBox: UIButton {
+    var row: Int?
+    var section: Int?
 }

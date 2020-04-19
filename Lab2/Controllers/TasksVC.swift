@@ -9,14 +9,18 @@
 import UIKit
 import Kingfisher
 
-class TasksVC: UIViewController {
+protocol updateControl {
+    func updateTasks()
+}
+
+class TasksVC: UIViewController, updateControl {
     
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var notaskLabel: UILabel!
     @IBOutlet weak var placeholderImageView: UIImageView!
-
-    let tasksCreateVC = TasksCreateVC()
+    
+    var refreshControl = UIRefreshControl()
     
     var repository = Repository()
     
@@ -28,23 +32,47 @@ class TasksVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.navigationController?.navigationBar.barTintColor = UIColor.orange
-        self.navigationController?.isToolbarHidden = false
         
+        setUpNavigationBar()
+        
+        setUpPlaceHolderImage()
+        
+        setUpTableView()
+        
+        updateTasks()
+    }
+    
+    func setUpNavigationBar() {
+        self.title = "Not Forgot!"
+        self.navigationController?.navigationBar.barTintColor = UIColor.orange
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 34)]
+
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
+        //self.navigationItem.rightBarButtonItem.posi
+
+    }
+    
+    func setUpPlaceHolderImage() {
         let imageURL = URL(string: "https://loremflickr.com/g/640/480/holiday")
         placeholderImageView.kf.setImage(with: imageURL)
         placeholderImageView.alpha = 0.5
-        
+    }
+    
+    func setUpTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         
         tableView.register(UINib(nibName: "TaskViewCell", bundle: nil), forCellReuseIdentifier: idCell)
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
+        tableView.refreshControl = refreshControl
+        refreshControl.attributedTitle = NSAttributedString(string: "Updating")
+        refreshControl.addTarget(self, action: #selector(updateTable), for: UIControl.Event.valueChanged)
         
+    }
+    
+    @objc func updateTable() {
         updateTasks()
-        
+        refreshControl.endRefreshing()
     }
     
     func updateTasks() {
@@ -66,18 +94,26 @@ class TasksVC: UIViewController {
 
     @objc func addTask() {
         
+        let tasksCreateVC = TasksCreateVC()
+        tasksCreateVC.delegate = self
         self.navigationController?.pushViewController(tasksCreateVC, animated: true)
         
     }
     
 }
 
+
+
+
 extension TasksVC {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let swipeDelete = UIContextualAction(style: UIContextualAction.Style.normal, title: "Delete") { (action, view, success) in
-           
-            self.repository.deleteTask(id: self.tasks[indexPath.row].id, completion: { answer in
+            
+            
+            let taskID = self.tasksDictionary[self.categories[indexPath.section].id]![indexPath.row].id
+            
+            self.repository.deleteTask(id: taskID, completion: { answer in
                 if answer != nil {
                     self.updateTasks()
                 }
@@ -87,7 +123,21 @@ extension TasksVC {
         
         return UISwipeActionsConfiguration(actions: [swipeDelete])
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let task = self.tasksDictionary[self.categories[indexPath.section].id]![indexPath.row]
+        let tasksDetailsVC = TasksDetailsVC()
+        tasksDetailsVC.delegate = self
+        tasksDetailsVC.task = task
+        tasksDetailsVC.title = task.title
+        
+        self.navigationController?.pushViewController(tasksDetailsVC, animated: true)
+    }
+    
 }
+
+
+
 
 extension TasksVC: UITableViewDataSource, UITableViewDelegate{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -104,10 +154,7 @@ extension TasksVC: UITableViewDataSource, UITableViewDelegate{
             
         }
         
-        let categoryCount = categories.count
-        //print("categories: \(categories); count = \(categoryCount)")
-        
-        return categoryCount
+        return categories.count
         
     }
     
@@ -116,8 +163,6 @@ extension TasksVC: UITableViewDataSource, UITableViewDelegate{
             self.revertViewVisibility()
         }
         
-        //let tasksPerCategory = tasks.filter { $0.category!.id == categories[section].id }.count
-        //print("\(section) - \()")
         return tasksDictionary[categories[section].id]!.count
     }
     
@@ -131,9 +176,33 @@ extension TasksVC: UITableViewDataSource, UITableViewDelegate{
         
         cell.stripeView.backgroundColor = UIColor(hexString: task.priority!.color)
         
+        if task.done == true {
+            cell.doneButton.setImage(UIImage(named: "checked.png"), for: UIControl.State.normal)
+            cell.doneButton.removeTarget(self, action: #selector(checkDone(sender:)), for: UIControl.Event.touchUpInside)
+        } else {
+            cell.doneButton.setImage(UIImage(named: "unchecked.png"), for: UIControl.State.normal)
+            cell.doneButton.row = indexPath.row
+            cell.doneButton.section = indexPath.section
+            
+            cell.doneButton.addTarget(self, action: #selector(checkDone(sender:)), for: UIControl.Event.touchUpInside)
+        }
+        
         return cell
     }
     
+    @objc func checkDone(sender: CheckBox) {
+        let row = sender.row!
+        let section = sender.section!
+        
+        let task = tasksDictionary[categories[section].id]![row]
+
+        repository.patchTask(id: task.id, title: task.title, description: task.description, done: 1, deadline: task.deadline, category_id: task.category!.id, priority_id: task.priority!.id) { test in
+            if test != nil {
+                self.updateTasks()
+            }
+        }
+        
+    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return categories[section].name
@@ -142,7 +211,5 @@ extension TasksVC: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(indexPath.row)")
-    }
+    
 }

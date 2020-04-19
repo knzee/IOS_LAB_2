@@ -244,6 +244,41 @@ class APIService {
         
     }
     
+    func patchTask(id: Int, title: String, description: String, done: Int, deadline: Int, category_id: Int, priority_id: Int, completion: ((Result<Task>) -> Void)?) {
+        print(done)
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer " + "LUMLlCCEgnJOemXQOsFMmPpwVs0FMSOHbJhxIDXQLLnR7MD8o2n86q2teY7j",
+            "Accept": "application/json"
+        ]
+        
+        let parameters: [String : Any] = [
+            "title": title,
+            "description": description,
+            "done": done,
+            "deadline": deadline,
+            "category_id": category_id,
+            "priority_id": priority_id
+        ]
+        
+        let request = Alamofire.request(Const.tasksURL() + "/\(id)", method: HTTPMethod.patch, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+        
+        request.responseData { response in
+            switch response.result {
+            case .success(let data):
+                do {
+                    print(String(decoding: data, as: UTF8.self))
+                    let payload = try JSONDecoder().decode(Task.self, from: data)
+                    completion?(.success(payload))
+                } catch let error {
+                    completion?(.failure(error))
+                }
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+        
+    }
+    
     func deleteTask(id: Int, completion: ((Result<String>) -> Void)?) {
         let headers: HTTPHeaders = [
             "Authorization": "Bearer " + "LUMLlCCEgnJOemXQOsFMmPpwVs0FMSOHbJhxIDXQLLnR7MD8o2n86q2teY7j",
