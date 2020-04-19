@@ -134,7 +134,6 @@
 				78CE98DF24488BE10066A697 /* Services */,
 				78CE98DE24488BCD0066A697 /* Model */,
 				785A69C5243EE5B80012BC60 /* AppDelegate.swift */,
-				785A69E5243F1CB80012BC60 /* UIExtensions.swift */,
 				785A69CC243EE5B90012BC60 /* Assets.xcassets */,
 				785A69D1243EE5B90012BC60 /* Info.plist */,
 			);
@@ -154,6 +153,7 @@
 		78CE98DF24488BE10066A697 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				785A69E5243F1CB80012BC60 /* UIExtensions.swift */,
 				783F904D24407C6A002BD909 /* Toast.swift */,
 				785A69E7243F23C30012BC60 /* APIService.swift */,
 			);

@@ -134,7 +134,7 @@ class APIService {
         
         let decoder = JSONDecoder()
         
-        let request = Alamofire.request(Const.prioritiesURL(), method: HTTPMethod.get, parameters: nil, encoding: JSONEncoding.default, headers: headers)
+        let request = Alamofire.request(Const.categoriesURL(), method: HTTPMethod.get, parameters: nil, encoding: JSONEncoding.default, headers: headers)
         
         request.responseData { response in
             switch response.result {
@@ -163,7 +163,7 @@ class APIService {
             "name": name
         ]
         
-        let request = Alamofire.request(Const.prioritiesURL(), method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+        let request = Alamofire.request(Const.categoriesURL(), method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
         
         request.responseData { response in
             switch response.result {
@@ -191,7 +191,7 @@ class APIService {
         
         let decoder = JSONDecoder()
         
-        let request = Alamofire.request(Const.prioritiesURL(), method: HTTPMethod.get, parameters: nil, encoding: JSONEncoding.default, headers: headers)
+        let request = Alamofire.request(Const.tasksURL(), method: HTTPMethod.get, parameters: nil, encoding: JSONEncoding.default, headers: headers)
         
         request.responseData { response in
             switch response.result {
@@ -210,18 +210,22 @@ class APIService {
         
     }
     
-    func postTask(name: String, completion: ((Result<Task>) -> Void)?) {
+    func postTask(title: String, description: String, done: Int, deadline: Int, category_id: Int, priority_id: Int, completion: ((Result<Task>) -> Void)?) {
         let headers: HTTPHeaders = [
             "Authorization": "Bearer " + "LUMLlCCEgnJOemXQOsFMmPpwVs0FMSOHbJhxIDXQLLnR7MD8o2n86q2teY7j",
             "Accept": "application/json"
         ]
         
-        let parameters: [String : String] = [
-            "name": "test",
-            "color": "#FFFFFF"
+        let parameters: [String : Any] = [
+            "title": title,
+            "description": description,
+            "done": done,
+            "deadline": deadline,
+            "category_id": category_id,
+            "priority_id": priority_id
         ]
         
-        let request = Alamofire.request(Const.prioritiesURL(), method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+        let request = Alamofire.request(Const.tasksURL(), method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
         
         request.responseData { response in
             switch response.result {
@@ -237,6 +241,27 @@ class APIService {
                 completion?(.failure(error))
             }
         }
+        
+    }
+    
+    func deleteTask(id: Int, completion: ((Result<String>) -> Void)?) {
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer " + "LUMLlCCEgnJOemXQOsFMmPpwVs0FMSOHbJhxIDXQLLnR7MD8o2n86q2teY7j",
+            "Accept": "application/json"
+        ]
+        
+        let request = Alamofire.request(Const.tasksURL() + "/\(id)", method: HTTPMethod.delete, parameters: nil, encoding: JSONEncoding.default, headers: headers)
+        
+        request.responseData { response in
+            switch response.result {
+            case .success(_):
+                completion?(.success("Successful deletion"))
+
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+        
         
     }
     
