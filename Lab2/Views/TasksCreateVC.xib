@@ -17,6 +17,7 @@
                 <outlet property="createTaskButton" destination="lUO-Eu-j7a" id="Qaq-5M-4lS"/>
                 <outlet property="dateTextField" destination="3kS-6l-NP5" id="yod-L0-nCg"/>
                 <outlet property="descriptionTextEdit" destination="wTh-tW-0et" id="9IY-Mb-YD9"/>
+                <outlet property="inputsView" destination="d4P-f5-EgE" id="6Xw-JJ-wE3"/>
                 <outlet property="priorityTextField" destination="xX5-hx-ITo" id="SQQ-ri-U4n"/>
                 <outlet property="titleTextField" destination="NrT-V2-vxh" id="9pH-ha-2CW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -127,7 +128,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="lUO-Eu-j7a" secondAttribute="bottom" constant="10" id="2fL-pW-MjA"/>
                 <constraint firstItem="lUO-Eu-j7a" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="43y-Dj-Mns"/>

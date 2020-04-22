@@ -18,6 +18,7 @@
                 <outlet property="descriptionTextView" destination="dDJ-xC-BmX" id="sm1-gP-p4h"/>
                 <outlet property="doneLabel" destination="2Rl-FK-xM0" id="cAU-Ck-QKn"/>
                 <outlet property="editButton" destination="xku-tO-uJN" id="SCO-as-eO5"/>
+                <outlet property="informationView" destination="oR3-eJ-59p" id="v0T-mL-dgN"/>
                 <outlet property="priorityLabel" destination="nWK-7o-Ndt" id="BJf-kH-5N4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -142,7 +143,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="xku-tO-uJN" secondAttribute="trailing" constant="10" id="1He-JJ-Dyf"/>
                 <constraint firstAttribute="bottom" secondItem="oR3-eJ-59p" secondAttribute="bottom" constant="276" id="1Tc-QC-3xd"/>

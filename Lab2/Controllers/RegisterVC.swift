@@ -20,8 +20,9 @@ class RegisterVC: UIViewController {
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     
-    var apiService: APIService = APIService()
     var toast: Toast = Toast()
+    
+    var repository = Repository()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +33,11 @@ class RegisterVC: UIViewController {
     }
     
     @IBAction func openLoginVC(_ sender: Any) {
+        presentLoginVC()
+    }
+    
+    func presentLoginVC(){
         let viewController = LoginVC()
-        
         self.present(viewController, animated: true, completion: nil)
     }
     
@@ -44,23 +48,32 @@ class RegisterVC: UIViewController {
         let rptPass = repeatTextField.text
         
         if (!mail!.isEmpty && !name!.isEmpty && !password!.isEmpty && !rptPass!.isEmpty) {
-            if (password == rptPass) {
-                apiService.login(email: mail!,password: password!)  { result in
-                    switch result {
-                    case .failure(let error):
-                        print(error)
-                        
-                    case .success(let value):
-                        print(value)
+            if isEmailValid(email: mail!) {
+                
+                if (password == rptPass) {
+                    repository.register(email: mail!, name: name!, password: password!)  { result in
+                        if result != nil {
+                            self.presentLoginVC()
+                        }
                     }
+                } else {
+                    toast.popMessage(message: "Passwords do not match", duration: 2.0, viewController: self)
                 }
+                
             } else {
-                toast.popMessage(message: "Passwords do not match", duration: 2.0, viewController: self)
+                toast.popMessage(message: "Email is not vaild!", duration: 2.0, viewController: self)
             }
             
         } else {
             toast.popMessage(message: "You have empty fields",duration: 2.0, viewController: self)
         }
+    }
+    
+    func isEmailValid(email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
     }
     
     func setUpButtons() {

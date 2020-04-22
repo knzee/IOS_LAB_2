@@ -18,6 +18,8 @@ class TasksCreateVC: UIViewController {
     @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var priorityTextField: UITextField!
     @IBOutlet weak var dateTextField: UITextField!
+    @IBOutlet weak var inputsView: UIView!
+    
     let picker = UIPickerView()
     let datePicker = UIDatePicker()
     
@@ -40,11 +42,22 @@ class TasksCreateVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpInputsView()
+        
         setUpPicker()
         setUpDatePicker()
         
         initTask()
         
+    }
+    
+    func setUpInputsView() {
+        inputsView.layer.shadowColor = UIColor.black.cgColor
+        inputsView.layer.shadowOpacity = 0.1
+        inputsView.layer.cornerRadius = 0
+        inputsView.layer.shadowRadius = 2
+        inputsView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        createTaskButton.setBorderRadius(radius: 3.0)
     }
     
     func initTask() {

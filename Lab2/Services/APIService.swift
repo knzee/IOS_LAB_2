@@ -39,12 +39,15 @@ private enum Const {
 }
 
 class APIService {
-    //Registration
-    func register(email: String, name: String, password: String,completionHandler: @escaping (Result<[String: Any]>) -> Void) {
-        registerRequest(email: email,name: name, password: password, completion: completionHandler)
+    func getApiToken() -> String {
+        if let apiToken = UserDefaults.standard.string(forKey: "api_token") {
+            return apiToken
+        } else {
+            return ""
+        }
     }
-    
-    func registerRequest(email: String, name: String, password: String, completion: @escaping (Result<[String: Any]>) -> Void) {
+    //Registration
+    func register(email: String, name: String, password: String, completion:  ((Result<Token>) -> Void)?) {
         
         let parameters: [String : String] = [
             "email": email,
@@ -52,23 +55,24 @@ class APIService {
             "password": password
         ]
 
-        Alamofire.request(Const.registerURL(), method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
-            switch response.result {
-            case .success(let value as [String: Any]):
-                completion(.success(value))
-                
-            case .failure(let error):
-                completion(.failure(error))
-                
-            default:
-                fatalError("received non-dictionary JSON response")
-            }
-            
-        }
+        let request = Alamofire.request(Const.registerURL(), method: HTTPMethod.post, parameters: parameters, encoding: JSONEncoding.default)
         
+        request.responseData { response in
+            switch response.result {
+            case .success(let data):
+                do {
+                    let payload = try JSONDecoder().decode(Token.self, from: data)
+                    completion?(.success(payload))
+                } catch let error {
+                    completion?(.failure(error))
+                }
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
     }
     
-   //Login
+    //Login
     func login(email: String, password: String, completion: ((Result<Token>) -> Void)? ) {
         let parameters: [String : String] = [
             "email": email,
@@ -87,8 +91,18 @@ class APIService {
                 do {
                     let payload = try JSONDecoder().decode(Token.self, from: data)
                     completion?(.success(payload))
-                } catch let error {
-                    completion?(.failure(error))
+                } catch _ {
+                    do {
+                        let jsonMessage = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:Any]
+                        let message = jsonMessage["message"]
+                        
+                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : message])
+                        
+                        completion?(.failure(error))
+                    } catch let err as NSError {
+                        print(err)
+                    }
+                    
                 }
             case .failure(let error):
                 completion?(.failure(error))
@@ -99,8 +113,9 @@ class APIService {
     
     //Priorities
     func getPriorities(completion: ((Result<[Priority]>) -> Void)?) {
+        let token = getApiToken()
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer " + "LUMLlCCEgnJOemXQOsFMmPpwVs0FMSOHbJhxIDXQLLnR7MD8o2n86q2teY7j",
+            "Authorization": "Bearer " + token,
             "Accept": "application/json"
         ]
         
@@ -127,8 +142,9 @@ class APIService {
     
     //Categories
     func getCategories(completion: ((Result<[Category]>) -> Void)?) {
+        let token = getApiToken()
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer " + "LUMLlCCEgnJOemXQOsFMmPpwVs0FMSOHbJhxIDXQLLnR7MD8o2n86q2teY7j",
+            "Authorization": "Bearer " + token,
             "Accept": "application/json"
         ]
         
@@ -154,8 +170,9 @@ class APIService {
     }
     
     func postCategory(name: String, completion: ((Result<Category>) -> Void)?) {
+        let token = getApiToken()
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer " + "LUMLlCCEgnJOemXQOsFMmPpwVs0FMSOHbJhxIDXQLLnR7MD8o2n86q2teY7j",
+            "Authorization": "Bearer " + token,
             "Accept": "application/json"
         ]
         
@@ -184,8 +201,9 @@ class APIService {
     
     //Tasks
     func getTasks(completion: ((Result<[Task]>) -> Void)?) {
+        let token = getApiToken()
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer " + "LUMLlCCEgnJOemXQOsFMmPpwVs0FMSOHbJhxIDXQLLnR7MD8o2n86q2teY7j",
+            "Authorization": "Bearer " + token,
             "Accept": "application/json"
         ]
         
@@ -211,8 +229,9 @@ class APIService {
     }
     
     func postTask(title: String, description: String, done: Int, deadline: Int, category_id: Int, priority_id: Int, completion: ((Result<Task>) -> Void)?) {
+        let token = getApiToken()
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer " + "LUMLlCCEgnJOemXQOsFMmPpwVs0FMSOHbJhxIDXQLLnR7MD8o2n86q2teY7j",
+            "Authorization": "Bearer " + token,
             "Accept": "application/json"
         ]
         
@@ -245,9 +264,9 @@ class APIService {
     }
     
     func patchTask(id: Int, title: String, description: String, done: Int, deadline: Int, category_id: Int, priority_id: Int, completion: ((Result<Task>) -> Void)?) {
-        print(done)
+        let token = getApiToken()
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer " + "LUMLlCCEgnJOemXQOsFMmPpwVs0FMSOHbJhxIDXQLLnR7MD8o2n86q2teY7j",
+            "Authorization": "Bearer " + token,
             "Accept": "application/json"
         ]
         
@@ -280,8 +299,9 @@ class APIService {
     }
     
     func deleteTask(id: Int, completion: ((Result<String>) -> Void)?) {
+        let token = getApiToken()
         let headers: HTTPHeaders = [
-            "Authorization": "Bearer " + "LUMLlCCEgnJOemXQOsFMmPpwVs0FMSOHbJhxIDXQLLnR7MD8o2n86q2teY7j",
+            "Authorization": "Bearer " + token,
             "Accept": "application/json"
         ]
         

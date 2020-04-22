@@ -48,7 +48,8 @@ class TasksVC: UIViewController, updateControl {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 34)]
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
-        //self.navigationItem.rightBarButtonItem.posi
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.trash, target: self, action: #selector(logOff))
 
     }
     
@@ -91,7 +92,14 @@ class TasksVC: UIViewController, updateControl {
         tableView.isHidden = !tableView.isHidden
         notaskLabel.isHidden = !notaskLabel.isHidden
     }
-
+    
+    @objc func logOff() {
+        repository.logOff()
+        let loginVC = LoginVC()
+        
+        self.present(loginVC, animated: true, completion: nil)
+    }
+    
     @objc func addTask() {
         
         let tasksCreateVC = TasksCreateVC()

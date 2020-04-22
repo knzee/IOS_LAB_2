@@ -18,11 +18,15 @@ class LoginVC: UIViewController {
     
     var toast = Toast()
     
+    var repository = Repository()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpButtons()
         setUpTextFields()
+        
+
         
     }
     
@@ -33,33 +37,44 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func logIn(_ sender: Any) {
-        /*let mail = mailTextField.text
+        let mail = mailTextField.text
         let password = passwordTextField.text
 
         if (!mail!.isEmpty && !password!.isEmpty) {
             
-            apiService.login(email: mail!,password: password!)  { result in
-                switch result {
-                case .failure(let error):
-                    self.toast.popMessage(message: "ASHIBOCHKA", duration: 2.0, viewController: self)
-                    
-                case .success(let value):
-                    print(value.api_token)
+            if isEmailValid(email: mail!) {
+                repository.login(email: mail!,password: password!)  { result in
+                    if let _ = result as? Token {
+                        self.presentTasksVC()
+                    }
+                    if let message = result as? String {
+                        self.toast.popMessage(message: message, duration: 2.0, viewController: self)
+                    }
                 }
+            } else {
+                toast.popMessage(message: "Email is not valid", duration: 2.0, viewController: self)
             }
+            
             
         } else {
             toast.popMessage(message: "You have empty fields", duration: 2.0, viewController: self)
-         }*/
+         }
 
         
+    }
+    
+    func isEmailValid(email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
+    
+    func presentTasksVC() {
         let tasksVC = TasksVC()
         let nav = UINavigationController(rootViewController: tasksVC)
         
         self.present(nav, animated: true, completion: nil)
-
-        
-        
     }
     
     func setUpTextFields() {

@@ -19,6 +19,8 @@ class TasksDetailsVC: UIViewController {
     @IBOutlet weak var priorityLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
     
+    @IBOutlet weak var informationView: UIView!
+    
     var delegate: updateControl?
     
     var task: Task?
@@ -47,6 +49,15 @@ class TasksDetailsVC: UIViewController {
         
         priorityLabel.text = task?.priority!.name
         priorityLabel.backgroundColor = UIColor(hexString: task?.priority!.color ?? "FFFFFF")
+        
+        informationView.layer.shadowColor = UIColor.black.cgColor
+        informationView.layer.shadowOpacity = 0.1
+        informationView.layer.cornerRadius = 0
+        informationView.layer.shadowRadius = 2
+        informationView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        
+        editButton.setBorderRadius(radius: 3.0)
+
         
     }
 

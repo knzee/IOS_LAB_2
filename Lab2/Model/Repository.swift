@@ -4,10 +4,56 @@
 //
 //  Created by Test Testovich on 16/04/2020.
 //  Copyright © 2020 TSU. All rights reserved.
+import Foundation
 
 class Repository {
     
     var apiService = APIService()
+    
+    //Login + Register
+    func checkIfLoggedIn() -> Bool {
+        
+        if let ass = UserDefaults.standard.string(forKey: "api_token") {
+            print(ass)
+            return true
+        } else {
+            return false
+        }
+        
+    }
+    
+    func logOff() {
+        UserDefaults.standard.removeObject(forKey: "api_token")
+    }
+    
+    func login(email: String, password: String, completion: ((Any?) -> Void)? ) {
+        
+        apiService.login(email: email, password: password) { loginResult in
+            switch loginResult {
+            case .success(let token):
+                completion?(token)
+                UserDefaults.standard.set(token.api_token, forKey: "api_token")
+                
+            case .failure(let error):
+                completion?(error.localizedDescription)
+            }
+            
+        }
+    }
+    
+    func register(email: String, name: String, password: String, completion:  ((Token?) -> Void)?) {
+        
+        apiService.register(email: email, name: name, password: password) { registerResult in
+            switch registerResult {
+            case .success(let token):
+                completion?(token)
+                
+            case .failure(_):
+                completion?(nil)
+            }
+            
+        }
+    }
     
     //Priorities
     func getPriorities(completion: (([Priority]?) -> Void)? ) {
