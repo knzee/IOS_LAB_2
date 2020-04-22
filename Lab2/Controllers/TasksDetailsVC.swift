@@ -58,7 +58,7 @@ class TasksDetailsVC: UIViewController {
         
         editButton.setBorderRadius(radius: 3.0)
 
-        
+        self.navigationController?.navigationBar.tintColor = UIColor.white
     }
 
 

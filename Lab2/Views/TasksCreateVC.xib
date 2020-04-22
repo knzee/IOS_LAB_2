@@ -19,6 +19,7 @@
                 <outlet property="descriptionTextEdit" destination="wTh-tW-0et" id="9IY-Mb-YD9"/>
                 <outlet property="inputsView" destination="d4P-f5-EgE" id="6Xw-JJ-wE3"/>
                 <outlet property="priorityTextField" destination="xX5-hx-ITo" id="SQQ-ri-U4n"/>
+                <outlet property="remainingLabel" destination="ZRP-K4-fa2" id="h7k-Al-ZOi"/>
                 <outlet property="titleTextField" destination="NrT-V2-vxh" id="9pH-ha-2CW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -104,13 +105,21 @@
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRP-K4-fa2">
+                            <rect key="frame" x="352" y="195" width="42" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="xX5-hx-ITo" firstAttribute="leading" secondItem="d4P-f5-EgE" secondAttribute="leading" constant="10" id="1LR-xZ-2tn"/>
+                        <constraint firstItem="ZRP-K4-fa2" firstAttribute="top" secondItem="wTh-tW-0et" secondAttribute="bottom" constant="5" id="5ZO-VO-8g1"/>
                         <constraint firstItem="NrT-V2-vxh" firstAttribute="top" secondItem="d4P-f5-EgE" secondAttribute="top" constant="10" id="BGA-Id-0Qw"/>
                         <constraint firstItem="qn3-4F-ned" firstAttribute="leading" secondItem="akr-8m-a97" secondAttribute="trailing" constant="10" id="HGY-V7-3XD"/>
                         <constraint firstAttribute="trailing" secondItem="xX5-hx-ITo" secondAttribute="trailing" constant="10" id="L6x-Rw-g38"/>
+                        <constraint firstAttribute="trailing" secondItem="ZRP-K4-fa2" secondAttribute="trailing" constant="10" id="Li8-6B-S7C"/>
                         <constraint firstItem="wTh-tW-0et" firstAttribute="top" secondItem="NrT-V2-vxh" secondAttribute="bottom" constant="20" id="PQa-pW-xCY"/>
                         <constraint firstAttribute="bottom" secondItem="3kS-6l-NP5" secondAttribute="bottom" constant="20" id="aFS-rI-7hv"/>
                         <constraint firstAttribute="trailing" secondItem="3kS-6l-NP5" secondAttribute="trailing" constant="10" id="aVo-Tg-nbs"/>

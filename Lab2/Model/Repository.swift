@@ -6,14 +6,21 @@
 //  Copyright © 2020 TSU. All rights reserved.
 import Foundation
 
+
+
 class Repository {
+    
+    private enum Const {
+        static let tokenKey = "api_token"
+        
+    }
     
     var apiService = APIService()
     
     //Login + Register
     func checkIfLoggedIn() -> Bool {
         
-        if let ass = UserDefaults.standard.string(forKey: "api_token") {
+        if let ass = UserDefaults.standard.string(forKey: Const.tokenKey) {
             print(ass)
             return true
         } else {
@@ -23,7 +30,7 @@ class Repository {
     }
     
     func logOff() {
-        UserDefaults.standard.removeObject(forKey: "api_token")
+        UserDefaults.standard.removeObject(forKey: Const.tokenKey)
     }
     
     func login(email: String, password: String, completion: ((Any?) -> Void)? ) {
@@ -32,7 +39,7 @@ class Repository {
             switch loginResult {
             case .success(let token):
                 completion?(token)
-                UserDefaults.standard.set(token.api_token, forKey: "api_token")
+                UserDefaults.standard.set(token.api_token, forKey: Const.tokenKey)
                 
             case .failure(let error):
                 completion?(error.localizedDescription)

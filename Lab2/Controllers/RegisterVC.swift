@@ -53,6 +53,7 @@ class RegisterVC: UIViewController {
                 if (password == rptPass) {
                     repository.register(email: mail!, name: name!, password: password!)  { result in
                         if result != nil {
+                            self.toast.popMessage(message: "Successful registration", duration: 2.0, viewController: self)
                             self.presentLoginVC()
                         }
                     }

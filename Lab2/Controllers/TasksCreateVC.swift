@@ -19,6 +19,8 @@ class TasksCreateVC: UIViewController {
     @IBOutlet weak var priorityTextField: UITextField!
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var inputsView: UIView!
+
+    @IBOutlet weak var remainingLabel: UILabel!
     
     let picker = UIPickerView()
     let datePicker = UIDatePicker()
@@ -33,8 +35,6 @@ class TasksCreateVC: UIViewController {
     var categories: [Category] = []
     var priorities: [Priority] = []
     
-    let test: [String] = ["1a","2b","3c","4d","5e"]
-    
     let cellId = "CELLID"
     
     var isCategorySelected = false
@@ -43,12 +43,40 @@ class TasksCreateVC: UIViewController {
         super.viewDidLoad()
         
         setUpInputsView()
+        setUpToolBar()
+        
+        descriptionTextEdit.delegate = self
         
         setUpPicker()
         setUpDatePicker()
         
         initTask()
         
+    }
+    
+    func setUpToolBar() {
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        
+        self.navigationItem.hidesBackButton = true
+        let newBackButton = UIBarButtonItem(title: "< Not Forgot!", style: UIBarButtonItem.Style.done, target: self, action: #selector(back(sender:)))
+        self.navigationItem.leftBarButtonItem = newBackButton
+    }
+    
+    @objc func back(sender: UIBarButtonItem) {
+        
+        let alert = UIAlertController(title: "Save changes?", message: "It's recommended to save changes", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            self.createTask(sender)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "NOPE.AVI", style: .default, handler: { action in
+            self.navigationController?.popViewController(animated: true)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true)
     }
     
     func setUpInputsView() {
@@ -58,6 +86,8 @@ class TasksCreateVC: UIViewController {
         inputsView.layer.shadowRadius = 2
         inputsView.layer.shadowOffset = CGSize(width: 0, height: 1)
         createTaskButton.setBorderRadius(radius: 3.0)
+        
+        
     }
     
     func initTask() {
@@ -65,6 +95,7 @@ class TasksCreateVC: UIViewController {
             editMode = true
             titleTextField.text = task!.title
             descriptionTextEdit.text = task!.description
+            remainingLabel.text = "\(task!.description.count)/120"
             categoryTextField.text = task!.category!.name
             priorityTextField.text = task!.priority!.name
             
@@ -76,6 +107,7 @@ class TasksCreateVC: UIViewController {
             createTaskButton.setTitle("Save", for: UIControl.State.normal)
         } else {
             task = Task(id: -1, title: "", description: "", done: false, deadline: 0, category: nil, priority: nil, created: 0)
+            remainingLabel.text = "0/120"
         }
         
     }
@@ -192,6 +224,27 @@ class TasksCreateVC: UIViewController {
         
         
     }
+}
+
+extension TasksCreateVC: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        
+        let currentText = textView.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: text)
+        
+        var count = updatedText.count
+        if updatedText.count > 120 {
+            count = 120
+        }
+        remainingLabel.text = "\(count)/120"
+        
+        return updatedText.count <= 120
+        
+    }
+
 }
 
 extension TasksCreateVC: UITextFieldDelegate {
